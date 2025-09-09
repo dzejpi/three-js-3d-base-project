@@ -8,14 +8,6 @@ type Scene = "splash" | "menu" | "game";
 export default function App() {
     const [scene, setScene] = useState<Scene>("splash");
 
-    useEffect(() => {
-        if (scene === "splash") {
-            // TODO temporary hardcoded timeout
-            const timer = setTimeout(() => setScene("menu"), 4000);
-            return () => clearTimeout(timer);
-        }
-    }, [scene]);
-
     return (
         <>
             {scene === "splash" && <SplashScreen onContinue={() => setScene("menu")} />}
