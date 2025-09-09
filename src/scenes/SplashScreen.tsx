@@ -9,22 +9,30 @@ const logos: string[] = [
     "assets/sprites/splash/logo-main.png"
 ]
 
-const fadeInTime: number = 1000;
-const displayTime: number = 2000;
-const fadeOutTime: number = 1000;
+const fadeInTime: number = 1500;
+const displayTime: number = 750;
+const fadeOutTime: number = 1500;
+
+type FadeState = "fade-in" | "display" | "fade-out";
 
 export default function SplashScreen({ onContinue }: Props) {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [fadeState, setFadeState] = useState<"fade-in" | "display" | "fade-out">("fade-in");
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [fadeState, setFadeState] = useState<FadeState>("fade-in");
+    const [opacity, setOpacity] = useState<number>(0);
 
     useEffect(() => {
         let timer: number;
+        let rafId: number;
 
         if (fadeState === "fade-in") {
+            setOpacity(0);
+            rafId = requestAnimationFrame(() => setOpacity(1));
             timer = setTimeout(() => setFadeState("display"), fadeInTime);
-        } else if (fadeState === "display"){
+        } else if (fadeState === "display") {
+            setOpacity(1);
             timer = window.setTimeout(() => setFadeState("fade-out"), displayTime);
         } else if (fadeState === "fade-out") {
+            setOpacity(0)
             timer = window.setTimeout(() => {
                 if (currentIndex < logos.length - 1) {
                     setCurrentIndex((i) => i + 1);
@@ -34,13 +42,12 @@ export default function SplashScreen({ onContinue }: Props) {
                 }
             }, fadeOutTime);
         }
-        return () => clearTimeout(timer);
-    }, [fadeState, currentIndex, onContinue]);
 
-    const opacity =
-        fadeState === "fade-in" ? 0 :
-        fadeState === "display" ? 1 :
-        fadeState === "fade-out" ? 0 : 1;
+        return () => {
+            clearTimeout(timer);
+            cancelAnimationFrame(rafId);
+        };
+    }, [fadeState, currentIndex, onContinue]);
 
     const style: React.CSSProperties = {
         width: "100%",
@@ -50,11 +57,11 @@ export default function SplashScreen({ onContinue }: Props) {
         alignItems: "center",
         opacity: opacity,
         transition: `opacity ${
-        fadeState === "fade-in"
-            ? fadeInTime
-            : fadeState === "fade-out"
-            ? fadeOutTime
-            : 0
+            fadeState === "fade-in"
+                ? fadeInTime
+                : fadeState === "fade-out"
+                ? fadeOutTime
+                : 0
         }ms`,
     };
 
