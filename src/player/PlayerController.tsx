@@ -11,8 +11,8 @@ export default function PlayerController() {
     const { camera, gl } = useThree();
 
     const [keys, setKeys] = useState<Record<string, boolean>>({});
-    const [yaw, setYaw] = useState(0);
-    const [pitch, setPitch] = useState(0);
+    const yawRef = useRef(0);
+    const pitchRef = useRef(0);
 
     // Key presses
     useEffect(() => {
@@ -39,8 +39,8 @@ export default function PlayerController() {
 
         const handleMouseMove = (e: MouseEvent) => {
             if (document.pointerLockElement) {
-                setYaw((y) => y - e.movementX * 0.002);
-                setPitch((p) => Math.max(-Math.PI / 2, Math.min(Math.PI / 2, p - e.movementY * 0.002)));
+                yawRef.current -= e.movementX * 0.002;
+                pitchRef.current = Math.max(-Math.PI/2, Math.min(Math.PI/2, pitchRef.current - e.movementY * 0.002));
             }
         };
         document.addEventListener("mousemove", handleMouseMove);
@@ -57,12 +57,12 @@ export default function PlayerController() {
 
         // Calculate direction from camera yaw
         const forward = {
-            x: -Math.sin(yaw),
-            z: -Math.cos(yaw),
+            x: -Math.sin(yawRef.current),
+            z: -Math.cos(yawRef.current),
         };
         const right = {
-            x: Math.cos(yaw),
-            z: -Math.sin(yaw),
+            x: Math.cos(yawRef.current),
+            z: -Math.sin(yawRef.current),
         };
 
         let speed = WALK_SPEED;
@@ -111,8 +111,8 @@ export default function PlayerController() {
         const pos = bodyRef.current.translation();
         camera.position.set(pos.x, pos.y + 0.5, pos.z); // 0.5 offset for eyes
         camera.rotation.order = "YXZ";
-        camera.rotation.y = yaw;
-        camera.rotation.x = pitch;
+        camera.rotation.y = yawRef.current;
+        camera.rotation.x = pitchRef.current;
         camera.rotation.z = 0;
     });
 
