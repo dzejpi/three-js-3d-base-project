@@ -14,6 +14,8 @@ export default function PlayerController() {
     const yawRef = useRef(0);
     const pitchRef = useRef(0);
 
+    const posRef = useRef({ x: 0, y: 0, z: 0 });
+
     // Key presses
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => setKeys((k) => ({ ...k, [e.key.toLowerCase()]: true }));
@@ -109,7 +111,14 @@ export default function PlayerController() {
 
         // Sync camera to player position
         const pos = bodyRef.current.translation();
-        camera.position.set(pos.x, pos.y + 0.5, pos.z); // 0.5 offset for eyes
+        posRef.current = pos; 
+        camera.position.x = posRef.current.x;
+        camera.position.z = posRef.current.z;
+
+        // Smoother jump/fall
+        const targetY = posRef.current.y + 0.5;
+        camera.position.y += (targetY - camera.position.y) * 0.5;
+        
         camera.rotation.order = "YXZ";
         camera.rotation.y = yawRef.current;
         camera.rotation.x = pitchRef.current;
