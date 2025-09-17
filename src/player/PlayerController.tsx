@@ -85,7 +85,7 @@ export default function PlayerController() {
             moveX -= right.x;
             moveZ -= right.z;
         }
-        
+
         if (keys["d"] || keys["arrowright"]) {
             moveX += right.x;
             moveZ += right.z;
@@ -110,7 +110,10 @@ export default function PlayerController() {
         // Sync camera to player position
         const pos = bodyRef.current.translation();
         camera.position.set(pos.x, pos.y + 0.5, pos.z); // 0.5 offset for eyes
-        camera.rotation.set(pitch, yaw, 0);
+        camera.rotation.order = "YXZ";
+        camera.rotation.y = yaw;
+        camera.rotation.x = pitch;
+        camera.rotation.z = 0;
     });
 
     return (
