@@ -4,13 +4,15 @@ import MainMenu from "./scenes/MainMenu";
 import SplashScreen from "./scenes/SplashScreen";
 import FadeOverlay from "./ui/FadeOverlay";
 import EndGameScreen from "./scenes/EndGameScreen";
+import DialogBox from "./ui/DialogBox";
 
-type Scene = "splash" | "menu" | "game" | "endgame";
+type Scene = "splash" | "menu" | "game" | "endgame" | "dialog";
 let isDebug: boolean = false;
 
 export default function App() {
-    const [scene, setScene] = useState<Scene>(isDebug ? "endgame" : "splash");
+    const [scene, setScene] = useState<Scene>(isDebug ? "dialog" : "splash");
     const [fading, setFading] = useState(false);
+    const [showDialog, setShowDialog] = useState(false);
 
     const switchScene = (nextScene: Scene) => {
         setFading(true);
@@ -33,6 +35,19 @@ export default function App() {
                     score={12340}
                     highScore={50000}
                     onMainMenu={() => switchScene("menu")}
+                />
+            )}
+
+            {scene === "dialog" && (
+                <DialogBox
+                    lines={[
+                        "Hello, traveler.",
+                        "This world is not what it seems...",
+                        "Be careful out there!"
+                    ]}
+                    autoDismiss={false}
+                    letterDelay={75}
+                    onComplete={() => setShowDialog(false)}
                 />
             )}
 
