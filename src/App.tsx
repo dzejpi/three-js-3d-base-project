@@ -12,7 +12,7 @@ let isDebug: boolean = false;
 export default function App() {
     const [scene, setScene] = useState<Scene>(isDebug ? "dialog" : "splash");
     const [fading, setFading] = useState(false);
-    const [showDialog, setShowDialog] = useState(false);
+    const [showDialog, setShowDialog] = useState(true);
 
     const switchScene = (nextScene: Scene) => {
         setFading(true);
@@ -39,16 +39,20 @@ export default function App() {
             )}
 
             {scene === "dialog" && (
-                <DialogBox
-                    lines={[
-                        "Hello, traveler.",
-                        "This world is not what it seems...",
-                        "Be careful out there!"
-                    ]}
-                    autoDismiss={false}
-                    letterDelay={75}
-                    onComplete={() => setShowDialog(false)}
-                />
+                <>
+                    {showDialog && (
+                        <DialogBox
+                            lines={[
+                                "Hello, traveler.",
+                                "This world is not what it seems...",
+                                "Be careful out there!"
+                            ]}
+                            autoDismiss={false}
+                            letterDelay={75}
+                            onComplete={() => setShowDialog(false)}
+                        />
+                    )}
+                </>
             )}
 
             <FadeOverlay visible={fading} duration={1} />
