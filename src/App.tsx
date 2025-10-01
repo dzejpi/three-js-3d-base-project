@@ -5,8 +5,9 @@ import SplashScreen from "./scenes/SplashScreen";
 import FadeOverlay from "./ui/FadeOverlay";
 import EndGameScreen from "./scenes/EndGameScreen";
 import DialogBox from "./ui/DialogBox";
+import Credits from "./scenes/Credits";
 
-type Scene = "splash" | "menu" | "game" | "endgame" | "dialog";
+type Scene = "splash" | "menu" | "game" | "credits" | "endgame" | "dialog";
 let isDebug: boolean = false;
 
 export default function App() {
@@ -25,8 +26,9 @@ export default function App() {
     return (
         <>
             {scene === "splash" && <SplashScreen onContinue={() => switchScene("menu")} />}
-            {scene === "menu" && <MainMenu onStart={() => switchScene("game")} />}
+            {scene === "menu" && <MainMenu onCredits={() => switchScene("credits")} onStart={() => switchScene("game")} />}
             {scene === "game" && <Game onExit={() => switchScene("menu")} />}
+            {scene === "credits" && <Credits onBackToMenu={() => switchScene("menu")} />}
 
             {/* For debugging */}
             {scene === "endgame" && (

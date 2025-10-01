@@ -2,9 +2,10 @@ import React from "react";
 
 interface Props {
     onStart: () => void;
+    onCredits: () => void;
 }
 
-export default function MainMenu({ onStart }: Props) {
+export default function MainMenu({ onCredits, onStart }: Props) {
     const handleNewGame = () => {
         onStart();
     };
@@ -22,7 +23,7 @@ export default function MainMenu({ onStart }: Props) {
     };
 
     const handleCredits = () => {
-        console.log("Credits TODO");
+        onCredits();
     };
 
     const handleQuit = () => {
