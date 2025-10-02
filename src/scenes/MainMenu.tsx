@@ -38,7 +38,7 @@ export default function MainMenu({ onCredits, onStart }: Props) {
             <GeneralGameButton onClick={handleSounds} >Sounds: on</GeneralGameButton>
             <GeneralGameButton onClick={handleMusic} >Music: on</GeneralGameButton>
             <GeneralGameButton onClick={handleCredits} >Credits</GeneralGameButton>
-            <GeneralGameButton onClick={handleQuit} >Quit</GeneralGameButton>
+            <GeneralGameButton disabled onClick={handleQuit} >Quit</GeneralGameButton>
         </div>
     );
 }
