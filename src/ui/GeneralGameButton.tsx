@@ -29,7 +29,7 @@ onClick,
                 background: disabled
                 ? "rgba(158, 158, 158)"
                 : toggle && active
-                ? "rgba(0, 150, 255, 0.7)"
+                ? "rgba(55, 71, 79)"
                 : "rgba(0, 0, 0, 0.7)",
                 color: "white",
                 cursor: disabled ? "not-allowed" : "pointer",
