@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import GeneralGameButton from "../ui/GeneralGameButton";
 
 interface Props {
     isGameWon: boolean,
@@ -29,21 +30,7 @@ export default function EndGameScreen({ isGameWon, score, highScore, onMainMenu 
 
             <p>Your score: {score}</p>
             <p>Highest score: {highScore}</p>
-
-            <button
-                onClick={onMainMenu}
-                style={{
-                marginTop: "1rem",
-                padding: "8px 12px",
-                background: "rgba(255,255,255,0.1)",
-                color: "white",
-                border: "1px solid white",
-                borderRadius: "6px",
-                cursor: "pointer",
-                }}
-            >
-                Return to Main menu
-            </button>
+            <GeneralGameButton onClick={onMainMenu}>Return to Main menu</GeneralGameButton>
         </div>
     );
 }
