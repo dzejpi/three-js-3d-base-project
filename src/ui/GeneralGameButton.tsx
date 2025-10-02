@@ -27,9 +27,9 @@ onClick,
                 borderRadius: "8px",
                 border: "2px solid white",
                 background: disabled
-                ? "rgba(255, 255, 255, 0.2)"
+                ? "rgba(158, 158, 158)"
                 : toggle && active
-                ? "rgba(0, 150, 255, 0.7)" // pressed look
+                ? "rgba(0, 150, 255, 0.7)"
                 : "rgba(0, 0, 0, 0.7)",
                 color: "white",
                 cursor: disabled ? "not-allowed" : "pointer",
