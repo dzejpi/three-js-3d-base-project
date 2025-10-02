@@ -1,4 +1,5 @@
 import React from "react";
+import GeneralGameButton from "../ui/GeneralGameButton";
 
 interface Props {
     onStart: () => void;
@@ -32,12 +33,12 @@ export default function MainMenu({ onCredits, onStart }: Props) {
 
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "center", marginTop: "2rem" }}>
-            <button onClick={handleNewGame}>Start</button>
-            <button onClick={handleOptions}>Options</button>
-            <button onClick={handleSounds}>Sounds: on</button>
-            <button onClick={handleMusic}>Music: on</button>
-            <button onClick={handleCredits}>Credits</button>
-            <button onClick={handleQuit}>Quit</button>
+            <GeneralGameButton onClick={handleNewGame} >Start</GeneralGameButton>
+            <GeneralGameButton onClick={handleOptions} >Options</GeneralGameButton>
+            <GeneralGameButton onClick={handleSounds} >Sounds: on</GeneralGameButton>
+            <GeneralGameButton onClick={handleMusic} >Music: on</GeneralGameButton>
+            <GeneralGameButton onClick={handleCredits} >Credits</GeneralGameButton>
+            <GeneralGameButton onClick={handleQuit} >Quit</GeneralGameButton>
         </div>
     );
 }

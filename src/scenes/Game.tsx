@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TestingWorld from "../world/TestingWorld";
 import PauseMenu from "./PauseMenu";
+import GeneralGameButton from "../ui/GeneralGameButton";
 
 interface Props {
     onExit: () => void;
@@ -46,22 +47,16 @@ export default function Game({ onExit }: Props) {
         )}
 
         {/* Temporary exit button overlay */}
-            <button
-                onClick={onExit}
+            <div
                 style={{
                 position: "absolute",
                 top: "10px",
                 right: "10px",
                 padding: "8px 12px",
-                background: "rgba(0,0,0,0.7)",
-                color: "white",
-                border: "none",
-                cursor: "pointer",
-                borderRadius: "6px"
                 }}
             >
-                Exit
-            </button>
+                <GeneralGameButton onClick={onExit} >Exit</GeneralGameButton>
+            </div>
         </div>
     );
 }

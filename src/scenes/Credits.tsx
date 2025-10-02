@@ -1,4 +1,5 @@
 import React from "react";
+import GeneralGameButton from "../ui/GeneralGameButton";
 
 interface Props {
     onBackToMenu: () => void;
@@ -26,7 +27,7 @@ export default function Credits({ onBackToMenu }: Props) {
             <p style={{ marginBottom: "2rem", lineHeight: "1.5rem" }}>
                 Very nice credits.
             </p>
-            <button onClick={onBackToMenu}>Back to Menu</button>
+            <GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
         </div>
     );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import GeneralGameButton from "../ui/GeneralGameButton";
 
 interface Props {
     onResume: () => void;
@@ -14,6 +15,7 @@ export default function PauseMenu({ onResume, onMainMenu }: Props) {
                 left: 0,
                 width: "100%",
                 height: "100%",
+                gap: "1rem",
                 background: "rgba(0,0,0,0.7)",
                 display: "flex",
                 flexDirection: "column",
@@ -24,12 +26,8 @@ export default function PauseMenu({ onResume, onMainMenu }: Props) {
             }}
             >
             <h1>Paused</h1>
-            <button onClick={onResume} style={{ margin: "1rem" }}>
-                Continue
-            </button>
-            <button onClick={onMainMenu} style={{ margin: "1rem" }}>
-                Quit to menu
-            </button>
+            <GeneralGameButton onClick={onResume}>Continue</GeneralGameButton>
+            <GeneralGameButton onClick={onMainMenu}>Quit to menu</GeneralGameButton>
         </div>
     );
 }
