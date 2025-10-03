@@ -1,5 +1,6 @@
 import React from "react";
 import GeneralGameButton from "../ui/GeneralGameButton";
+import GameUiTitle from "../ui/GameUiTitle";
 
 interface Props {
     onResume: () => void;
@@ -25,7 +26,7 @@ export default function PauseMenu({ onResume, onMainMenu }: Props) {
                 zIndex: 20,
             }}
             >
-            <h1>Paused</h1>
+            <GameUiTitle>Paused</GameUiTitle>
             <GeneralGameButton onClick={onResume}>Continue</GeneralGameButton>
             <GeneralGameButton onClick={onMainMenu}>Quit to menu</GeneralGameButton>
         </div>

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import GeneralGameButton from "../ui/GeneralGameButton";
+import GameUiTitle from "../ui/GameUiTitle";
 
 interface Props {
     isGameWon: boolean,
@@ -26,7 +27,8 @@ export default function EndGameScreen({ isGameWon, score, highScore, onMainMenu 
                 zIndex: 30,
             }}
         >
-            <h1>{isGameWon ? "You won!" : "Game over"}</h1>
+            <GameUiTitle>{isGameWon ? "You won!" : "Game over"}</GameUiTitle>
+            
 
             <p>Your score: {score}</p>
             <p>Highest score: {highScore}</p>

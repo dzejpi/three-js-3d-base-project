@@ -6,7 +6,7 @@ interface GameUiTitleProps {
 
 export default function GameUiTitle({ children }: GameUiTitleProps){
     return (
-        <h1>
+        <h1 style={{ marginBottom: "2rem" }}>
             {children}
         </h1>
     )
