@@ -1,6 +1,7 @@
 import React from "react";
 import GeneralGameButton from "../ui/GeneralGameButton";
 import GameUiTitle from "../ui/GameUiTitle";
+import GameUiText from "../ui/GameUiText";
 
 interface Props {
     onBackToMenu: () => void;
@@ -25,10 +26,8 @@ export default function Credits({ onBackToMenu }: Props) {
             }}
         >
             <GameUiTitle>Credits</GameUiTitle>
-
-            <p style={{ marginBottom: "2rem", lineHeight: "1.5rem" }}>
-                Very nice credits.
-            </p>
+            <GameUiText>Very nice credits.</GameUiText>
+            
             <GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
         </div>
     );

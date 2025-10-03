@@ -4,9 +4,9 @@ interface GameUiTextProps {
     children: React.ReactNode
 }
 
-export default function GameTextTitle({ children }: GameUiTextProps){
+export default function GameUiText({ children }: GameUiTextProps){
     return (
-        <p>
+        <p style={{ marginBottom: "2rem" }}>
             {children}
         </p>
     )
