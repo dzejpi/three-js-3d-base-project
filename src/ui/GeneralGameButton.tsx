@@ -1,4 +1,5 @@
 import React from "react";
+import { ColorTokens } from "../styles/colors";
 
 interface GeneralGameButtonProps {
     onClick?: () => void;
@@ -25,13 +26,13 @@ onClick,
                 padding: "0.8rem 1.6rem",
                 fontSize: "1rem",
                 borderRadius: "8px",
-                border: "2px solid white",
+                border: "1px solid white",
                 background: disabled
-                ? "rgba(158, 158, 158)"
+                ? ColorTokens.button_disabled
                 : toggle && active
-                ? "rgba(55, 71, 79)"
-                : "rgba(0, 0, 0, 0.7)",
-                color: "white",
+                ? ColorTokens.button_pressed
+                : ColorTokens.button_primary,
+                color: ColorTokens.button_text,
                 cursor: disabled ? "not-allowed" : "pointer",
                 minWidth,
                 transition: "all 0.2s ease",

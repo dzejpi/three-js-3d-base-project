@@ -5,6 +5,8 @@ const button_hover = '#455a64'
 const button_pressed = '#546e7a'
 const button_primary = '#90a4ae'
 const button_text = '#ffffff'
+const color_black = '#000000'
+const color_white = '#ffffff'
 
 export const ColorTokens = {
     button_disabled,
@@ -14,4 +16,6 @@ export const ColorTokens = {
     button_pressed,
     button_primary,
     button_text,
+    color_black,
+    color_white,
 }
