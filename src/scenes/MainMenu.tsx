@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import GeneralGameButton from '../ui/GeneralGameButton';
 import UIWrapper from '../ui/UIWrapper';
 import GameUiTitle from '../ui/GameUiTitle';
+import UICenterWrapper from '../ui/UICenterWrapper';
 
 interface Props {
 	onStart: () => void;
@@ -38,7 +39,7 @@ export default function MainMenu({ onCredits, onStart }: Props) {
 
 	return (
 		<UIWrapper>
-			<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center', marginTop: '2rem' }}>
+			<UICenterWrapper>
 				<GameUiTitle>Game Name</GameUiTitle>
 				<GeneralGameButton onClick={handleNewGame}>Start</GeneralGameButton>
 				<GeneralGameButton onClick={handleOptions}>Options</GeneralGameButton>
@@ -52,7 +53,7 @@ export default function MainMenu({ onCredits, onStart }: Props) {
 				<GeneralGameButton disabled onClick={handleQuit}>
 					Quit
 				</GeneralGameButton>
-			</div>
+			</UICenterWrapper>
 		</UIWrapper>
 	);
 }
