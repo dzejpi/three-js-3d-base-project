@@ -3,11 +3,7 @@ import InputRow from './InputRow';
 import GameUiTitle from '../ui/GameUiTitle';
 import GeneralGameButton from '../ui/GeneralGameButton';
 
-interface Props {
-	onBack: () => void;
-}
-
-export default function OptionsKeybinds({ onBack }: Props) {
+export default function OptionsKeybinds({}) {
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2rem' }}>
 			<InputRow
