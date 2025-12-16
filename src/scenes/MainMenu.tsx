@@ -7,9 +7,10 @@ import UICenterWrapper from '../ui/UICenterWrapper';
 interface Props {
 	onStart: () => void;
 	onCredits: () => void;
+	onSettings: () => void;
 }
 
-export default function MainMenu({ onCredits, onStart }: Props) {
+export default function MainMenu({ onCredits, onStart, onSettings }: Props) {
 	const [soundsOn, setSoundsOn] = useState(true);
 	const [musicOn, setMusicOn] = useState(true);
 
@@ -18,7 +19,7 @@ export default function MainMenu({ onCredits, onStart }: Props) {
 	};
 
 	const handleOptions = () => {
-		console.log('Options TODO');
+		onSettings();
 	};
 
 	const handleSounds = () => {

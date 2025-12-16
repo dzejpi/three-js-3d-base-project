@@ -1,7 +1,5 @@
 import React from 'react';
 import InputRow from './InputRow';
-import GameUiTitle from '../ui/GameUiTitle';
-import GeneralGameButton from '../ui/GeneralGameButton';
 
 export default function OptionsKeybinds({}) {
 	return (

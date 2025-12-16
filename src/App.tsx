@@ -6,12 +6,13 @@ import FadeOverlay from './ui/FadeOverlay';
 import EndGameScreen from './scenes/EndGameScreen';
 import DialogBox from './ui/DialogBox';
 import Credits from './scenes/Credits';
+import OptionsScreen from './scenes/OptionsScreen';
 
-type Scene = 'splash' | 'menu' | 'game' | 'credits' | 'endgame' | 'dialog';
+type Scene = 'splash' | 'menu' | 'game' | 'credits' | 'endgame' | 'dialog' | 'settings';
 let isDebug: boolean = false;
 
 export default function App() {
-	const [scene, setScene] = useState<Scene>(isDebug ? 'dialog' : 'splash');
+	const [scene, setScene] = useState<Scene>(isDebug ? 'settings' : 'splash');
 	const [fading, setFading] = useState(false);
 	const [showDialog, setShowDialog] = useState(true);
 
@@ -26,9 +27,10 @@ export default function App() {
 	return (
 		<>
 			{scene === 'splash' && <SplashScreen onContinue={() => switchScene('menu')} />}
-			{scene === 'menu' && <MainMenu onCredits={() => switchScene('credits')} onStart={() => switchScene('game')} />}
+			{scene === 'menu' && <MainMenu onCredits={() => switchScene('credits')} onStart={() => switchScene('game')} onSettings={() => switchScene('settings')} />}
 			{scene === 'game' && <Game onExit={() => switchScene('menu')} />}
 			{scene === 'credits' && <Credits onBackToMenu={() => switchScene('menu')} />}
+			{scene === 'settings' && <OptionsScreen onBackToMenu={() => switchScene('menu')}></OptionsScreen>}
 
 			{/* For debugging */}
 			{scene === 'endgame' && (
