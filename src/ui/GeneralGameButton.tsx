@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { ColorTokens } from '../styles/colors';
+import React from 'react';
 
 interface GeneralGameButtonProps {
 	onClick?: () => void;
@@ -18,33 +17,18 @@ export default function GeneralGameButton({
 	minWidth = '160px',
 	children,
 }: GeneralGameButtonProps) {
-	const [isHovered, setIsHovered] = useState(false);
+	const baseClass = 'px-6 py-3 text-base rounded-lg border border-white text-white transition-all duration-200';
 
-	const backgroundColor = disabled
-		? ColorTokens.button_disabled
-		: toggle && active
-		? ColorTokens.button_pressed
-		: isHovered
-		? ColorTokens.button_hover
-		: ColorTokens.button_primary;
+	const cursorClass = disabled ? 'cursor-not-allowed' : 'cursor-pointer';
+
+	const backgroundClass = disabled ? 'bg-gray-300' : toggle && active ? 'bg-gray-800' : 'bg-gray-500 hover:bg-gray-600';
 
 	return (
 		<button
 			onClick={disabled ? undefined : onClick}
 			disabled={disabled}
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
-			style={{
-				padding: '0.8rem 1.6rem',
-				fontSize: '1rem',
-				borderRadius: '8px',
-				border: '1px solid white',
-				background: backgroundColor,
-				color: ColorTokens.button_text,
-				cursor: disabled ? 'not-allowed' : 'pointer',
-				minWidth,
-				transition: 'all 0.2s ease',
-			}}
+			style={{ minWidth }}
+			className={`${baseClass} ${cursorClass} ${backgroundClass}`}
 		>
 			{children}
 		</button>
