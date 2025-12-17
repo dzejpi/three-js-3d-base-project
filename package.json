@@ -3,6 +3,7 @@
 		"@react-three/drei": "^10.7.5",
 		"@react-three/fiber": "^9.3.0",
 		"@react-three/rapier": "^2.1.0",
+		"@tailwindcss/postcss": "^4.1.18",
 		"framer-motion": "^12.23.22",
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1"
@@ -10,6 +11,9 @@
 	"devDependencies": {
 		"@types/react": "^19.1.12",
 		"@types/react-dom": "^19.1.9",
+		"autoprefixer": "^10.4.23",
+		"postcss": "^8.5.6",
+		"tailwindcss": "^4.1.18",
 		"typescript": "^5.9.2",
 		"vite": "^7.1.5"
 	},
