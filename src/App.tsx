@@ -27,7 +27,13 @@ export default function App() {
 	return (
 		<>
 			{scene === 'splash' && <SplashScreen onContinue={() => switchScene('menu')} />}
-			{scene === 'menu' && <MainMenu onCredits={() => switchScene('credits')} onStart={() => switchScene('game')} onSettings={() => switchScene('settings')} />}
+			{scene === 'menu' && (
+				<MainMenu
+					onCredits={() => switchScene('credits')}
+					onStart={() => switchScene('game')}
+					onSettings={() => switchScene('settings')}
+				/>
+			)}
 			{scene === 'game' && <Game onExit={() => switchScene('menu')} />}
 			{scene === 'credits' && <Credits onBackToMenu={() => switchScene('menu')} />}
 			{scene === 'settings' && <OptionsScreen onBackToMenu={() => switchScene('menu')}></OptionsScreen>}
