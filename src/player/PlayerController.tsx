@@ -16,6 +16,8 @@ export default function PlayerController() {
 
 	const posRef = useRef({ x: 0, y: 0, z: 0 });
 
+	const deadzone = (value: number, threshold = 0.15) => (Math.abs(value) < threshold ? 0 : value);
+
 	// Key presses
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => setKeys(k => ({ ...k, [e.key.toLowerCase()]: true }));
@@ -57,6 +59,39 @@ export default function PlayerController() {
 	useFrame(() => {
 		if (!bodyRef.current) return;
 
+		const gamepad = navigator.getGamepads?.()[0];
+		const gamepadLookSensitivity = 0.02;
+
+		let moveX = 0;
+		let moveZ = 0;
+
+		if (gamepad) {
+			const leftX = deadzone(gamepad.axes[0]);
+			const leftY = deadzone(gamepad.axes[1]);
+			const rightX = deadzone(gamepad.axes[2]);
+			const rightY = deadzone(gamepad.axes[3]);
+
+			// Movement
+			moveX += leftX;
+			moveZ -= leftY;
+
+			// Camera
+			yawRef.current -= rightX * gamepadLookSensitivity;
+			pitchRef.current = Math.max(
+				-Math.PI / 2,
+				Math.min(Math.PI / 2, pitchRef.current - rightY * gamepadLookSensitivity)
+			);
+
+			// Jump
+			if (gamepad.buttons[0].pressed) {
+				const linvel = bodyRef.current.linvel();
+
+				if (Math.abs(linvel.y) < 0.05) {
+					bodyRef.current.applyImpulse({ x: 0, y: JUMP_FORCE, z: 0 }, true);
+				}
+			}
+		}
+
 		// Calculate direction from camera yaw
 		const forward = {
 			x: -Math.sin(yawRef.current),
@@ -67,42 +102,27 @@ export default function PlayerController() {
 			z: -Math.sin(yawRef.current),
 		};
 
+		if (keys['w'] || keys['arrowup']) moveZ += 1;
+		if (keys['s'] || keys['arrowdown']) moveZ -= 1;
+		if (keys['a'] || keys['arrowleft']) moveX -= 1;
+		if (keys['d'] || keys['arrowright']) moveX += 1;
+
+		const worldX = right.x * moveX + forward.x * moveZ;
+		const worldZ = right.z * moveX + forward.z * moveZ;
+
 		let speed = WALK_SPEED;
-		if (keys['shift']) speed *= SPRINT_MULTIPLIER;
-
-		let moveX = 0;
-		let moveZ = 0;
-
-		if (keys['w'] || keys['arrowup']) {
-			moveX += forward.x;
-			moveZ += forward.z;
-		}
-
-		if (keys['s'] || keys['arrowdown']) {
-			moveX -= forward.x;
-			moveZ -= forward.z;
-		}
-
-		if (keys['a'] || keys['arrowleft']) {
-			moveX -= right.x;
-			moveZ -= right.z;
-		}
-
-		if (keys['d'] || keys['arrowright']) {
-			moveX += right.x;
-			moveZ += right.z;
+		if (keys['shift'] || gamepad?.buttons[10]?.pressed) {
+			speed *= SPRINT_MULTIPLIER;
 		}
 
 		// Normalize movement vector
-		const len = Math.hypot(moveX, moveZ);
-		if (len > 0) {
-			moveX = (moveX / len) * speed;
-			moveZ = (moveZ / len) * speed;
-		}
+		const len = Math.hypot(worldX, worldZ);
+		const finalX = len > 0 ? (worldX / len) * speed : 0;
+		const finalZ = len > 0 ? (worldZ / len) * speed : 0;
 
 		// Apply velocity (keep y for gravity/jumps)
 		const linvel = bodyRef.current.linvel();
-		bodyRef.current.setLinvel({ x: moveX, y: linvel.y, z: moveZ }, true);
+		bodyRef.current.setLinvel({ x: finalX, y: linvel.y, z: finalZ }, true);
 
 		// Jump
 		if (keys[' '] && Math.abs(linvel.y) < 0.05) {
