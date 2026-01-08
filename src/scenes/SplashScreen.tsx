@@ -4,7 +4,7 @@ interface Props {
 	onContinue: () => void;
 }
 
-const logos: string[] = ['assets/sprites/splash/logo-jam.png', 'assets/sprites/splash/logo-main.png'];
+const logos: string[] = ['./assets/sprites/splash/logo-jam.png', './assets/sprites/splash/logo-main.png'];
 
 const fadeInTime: number = 1500;
 const displayTime: number = 750;
