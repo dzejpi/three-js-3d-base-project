@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { RigidBody, CapsuleCollider } from '@react-three/rapier';
 import { useThree, useFrame } from '@react-three/fiber';
-import { input } from '../config/InputManager';
+import { input } from '../config/input/InputManager';
 
 const WALK_SPEED = 5;
 const SPRINT_MULTIPLIER = 1.8;

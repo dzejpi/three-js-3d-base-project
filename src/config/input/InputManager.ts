@@ -1,5 +1,5 @@
-import { Action, ActionState } from '../config/inputTypes';
-import { bindings } from '../config/bindings';
+import { Action, ActionState } from './inputTypes';
+import { bindings } from './bindings';
 
 class InputManager {
 	private keys = new Set<string>();

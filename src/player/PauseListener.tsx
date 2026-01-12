@@ -1,5 +1,5 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import { input } from '../config/InputManager';
+import { input } from '../config/input/InputManager';
 
 interface PauseListenerProps {
 	setPaused: React.Dispatch<React.SetStateAction<boolean>>;
