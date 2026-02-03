@@ -30,7 +30,7 @@ export function WorldLoader({ world_path }: WorldLoaderProps) {
 			}
 
 			if (name.startsWith('COL_')) {
-				createPrimitiveCollider(obj);
+				createPrimitiveCollider({ mesh: obj, rigidBody: undefined });
 				// Hide collider mesh
 				obj.visible = false;
 			}
