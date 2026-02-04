@@ -1,23 +1,46 @@
-import { Action, ActionState } from './inputTypes';
-import { bindings } from './bindings';
+import { Action, ActionState, KeyBinding } from './inputTypes';
+import { bindings as defaultBindings } from './inputDefaults';
 
 class InputManager {
 	private keys = new Set<string>();
+	private actions = new Map<Action, ActionState>();
 	private prevActions = new Map<Action, boolean>();
 
-	public actions = new Map<Action, ActionState>();
+	private bindings = new Map<Action, KeyBinding>();
 
 	constructor() {
+		// Initialize bindings
+		Object.entries(defaultBindings).forEach(([action, binding]) => {
+			this.bindings.set(action as Action, binding);
+		});
+
 		window.addEventListener('keydown', e => this.keys.add(e.code));
 		window.addEventListener('keyup', e => this.keys.delete(e.code));
+	}
+
+	getBinding(action: Action): KeyBinding {
+		return this.bindings.get(action)!;
+	}
+
+	setBinding(action: Action, binding: KeyBinding) {
+		this.bindings.set(action, binding);
+	}
+
+	// Runtime
+	get(action: Action): ActionState {
+		return (
+			this.actions.get(action) ?? {
+				pressed: false,
+				justPressed: false,
+				value: 0,
+			}
+		);
 	}
 
 	update() {
 		const gamepad = navigator.getGamepads?.()[0];
 
-		for (const action in bindings) {
-			const binding = bindings[action as Action];
-
+		for (const [action, binding] of this.bindings) {
 			let value = 0;
 			let pressed = false;
 
