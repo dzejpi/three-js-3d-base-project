@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import GameUiTitle from '../ui/GameUiTitle';
 import GeneralGameButton from '../ui/GeneralGameButton';
 import OptionsKeybinds from '../settings/OptionsKeybinds';
-import UIWrapper from '../ui/UIWrapper';
 import UICenterWrapper from '../ui/UICenterWrapper';
 
 // Placeholder components (replace with real ones later)
@@ -41,7 +40,6 @@ export default function OptionsScreen({ onBackToMenu }: Props) {
 	};
 
 	return (
-		<UIWrapper>
 			<UICenterWrapper>
 				<GameUiTitle>Settings</GameUiTitle>
 
@@ -86,6 +84,5 @@ export default function OptionsScreen({ onBackToMenu }: Props) {
 
 				<GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
 			</UICenterWrapper>
-		</UIWrapper>
 	);
 }

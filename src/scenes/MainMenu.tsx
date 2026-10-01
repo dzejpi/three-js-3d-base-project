@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import GeneralGameButton from '../ui/GeneralGameButton';
-import UIWrapper from '../ui/UIWrapper';
 import GameUiTitle from '../ui/GameUiTitle';
 import UICenterWrapper from '../ui/UICenterWrapper';
 
@@ -39,22 +38,20 @@ export default function MainMenu({ onCredits, onStart, onSettings }: Props) {
 	};
 
 	return (
-		<UIWrapper>
-			<UICenterWrapper>
-				<GameUiTitle>Game Name</GameUiTitle>
-				<GeneralGameButton onClick={handleNewGame}>Start</GeneralGameButton>
-				<GeneralGameButton onClick={handleOptions}>Options</GeneralGameButton>
-				<GeneralGameButton onClick={handleSounds} toggle active={soundsOn}>
-					Sounds: {soundsOn ? 'on' : 'off'}
-				</GeneralGameButton>
-				<GeneralGameButton onClick={handleMusic} toggle active={musicOn}>
-					Music: {musicOn ? 'on' : 'off'}
-				</GeneralGameButton>
-				<GeneralGameButton onClick={handleCredits}>Credits</GeneralGameButton>
-				<GeneralGameButton disabled onClick={handleQuit}>
-					Quit
-				</GeneralGameButton>
-			</UICenterWrapper>
-		</UIWrapper>
+		<UICenterWrapper>
+			<GameUiTitle>Game Name</GameUiTitle>
+			<GeneralGameButton onClick={handleNewGame}>Start</GeneralGameButton>
+			<GeneralGameButton onClick={handleOptions}>Options</GeneralGameButton>
+			<GeneralGameButton onClick={handleSounds} toggle active={soundsOn}>
+				Sounds: {soundsOn ? 'on' : 'off'}
+			</GeneralGameButton>
+			<GeneralGameButton onClick={handleMusic} toggle active={musicOn}>
+				Music: {musicOn ? 'on' : 'off'}
+			</GeneralGameButton>
+			<GeneralGameButton onClick={handleCredits}>Credits</GeneralGameButton>
+			<GeneralGameButton disabled onClick={handleQuit}>
+				Quit
+			</GeneralGameButton>
+		</UICenterWrapper>
 	);
 }

@@ -4,34 +4,11 @@ interface UIWrapperProps {
 	children: React.ReactNode;
 }
 
+// Global layout
 export default function UIWrapper({ children }: UIWrapperProps) {
 	return (
-		// Outer wrapper — global layout
-		<div
-			style={{
-				position: 'absolute',
-				top: 0,
-				left: 0,
-				width: '100%',
-				height: '100%',
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				justifyContent: 'flex-start',
-				padding: '4rem',
-				boxSizing: 'border-box',
-				pointerEvents: 'none', // ensures it doesn't block the 3D world clicks
-			}}
-		>
-			{/* Inner container for clickable elements */}
-			<div
-				style={{
-					width: '100%',
-					pointerEvents: 'auto', // allows interaction with children
-				}}
-			>
-				{children}
-			</div>
+		<div className="pointer-events-none absolute inset-0 flex flex-col justify-between">
+			<div className="pointer-events-auto w-full">{children}</div>
 		</div>
 	);
 }
