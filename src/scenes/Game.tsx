@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import TestingWorld from '../world/TestingWorld';
 import PauseMenu from './PauseMenu';
-import GeneralGameButton from '../ui/GeneralGameButton';
 import PlayerController from '../player/PlayerController';
 import { Physics } from '@react-three/rapier';
 import { Canvas } from '@react-three/fiber';
+import PlayerUi from '../ui/PlayerUi';
 
 interface Props {
 	onExit: () => void;
@@ -33,7 +33,7 @@ export default function Game({ onExit }: Props) {
 	}, [paused]);
 
 	return (
-		<div style={{ width: '100vw', height: '100vh' }}>
+		<>
 			<Canvas
 				camera={{ position: [0, 2, 5], fov: 75 }}
 				style={{ width: '100vw', height: '100vh', background: 'skyblue' }}
@@ -50,6 +50,8 @@ export default function Game({ onExit }: Props) {
 				</Physics>
 			</Canvas>
 
+			<PlayerUi />
+
 			{/* Pause overlay */}
 			{paused && (
 				<PauseMenu
@@ -61,18 +63,6 @@ export default function Game({ onExit }: Props) {
 					onMainMenu={onExit}
 				/>
 			)}
-
-			{/* Temporary exit button overlay */}
-			<div
-				style={{
-					position: 'absolute',
-					top: '10px',
-					right: '10px',
-					padding: '8px 12px',
-				}}
-			>
-				<GeneralGameButton onClick={onExit}>Exit</GeneralGameButton>
-			</div>
-		</div>
+		</>
 	);
 }
