@@ -16,9 +16,6 @@ export default function Credits({ onBackToMenu }: Props) {
 			<GameUiTitle>Credits</GameUiTitle>
 			<UIScrollArea>
 				<GameUiText>Very nice credits.</GameUiText>
-				<GameUiText>Very nice credits.</GameUiText>
-				<GameUiText>Very nice credits.</GameUiText>
-				<GameUiText>Very nice credits.</GameUiText>
 			</UIScrollArea>
 
 			<UIBottomAction>
