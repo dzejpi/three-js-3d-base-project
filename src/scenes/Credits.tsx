@@ -2,6 +2,7 @@ import React from 'react';
 import GeneralGameButton from '../ui/GeneralGameButton';
 import GameUiTitle from '../ui/GameUiTitle';
 import GameUiText from '../ui/GameUiText';
+import UICenterWrapper from '../ui/UICenterWrapper';
 
 interface Props {
 	onBackToMenu: () => void;
@@ -9,26 +10,18 @@ interface Props {
 
 export default function Credits({ onBackToMenu }: Props) {
 	return (
-		<div
-			style={{
-				position: 'absolute',
-				top: 0,
-				left: 0,
-				width: '100%',
-				height: '100%',
-				background: 'rgba(0,0,0,0.2)',
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'center',
-				alignItems: 'center',
-				color: 'white',
-				zIndex: 20,
-			}}
-		>
+		<UICenterWrapper>
 			<GameUiTitle>Credits</GameUiTitle>
-			<GameUiText>Very nice credits.</GameUiText>
+			<div className="flex min-h-0 flex-1 flex-col items-start gap-6 overflow-y-auto py-4">
+				<GameUiText>Very nice credits.</GameUiText>
+				<GameUiText>Very nice credits.</GameUiText>
+				<GameUiText>Very nice credits.</GameUiText>
+				<GameUiText>Very nice credits.</GameUiText>
+			</div>
 
-			<GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
-		</div>
+			<div className="w-48 self-center">
+				<GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
+			</div>
+		</UICenterWrapper>
 	);
 }
