@@ -6,8 +6,8 @@ import FadeOverlay from './ui/FadeOverlay';
 import EndGameScreen from './scenes/EndGameScreen';
 import DialogBox from './ui/DialogBox';
 import Credits from './scenes/Credits';
-import OptionsScreen from './scenes/OptionsScreen';
 import UIWrapper from './ui/UIWrapper';
+import SettingsScreen from './scenes/SettingsScreen';
 
 type Scene = 'splash' | 'menu' | 'game' | 'credits' | 'endgame' | 'dialog' | 'settings';
 let isDebug: boolean = false;
@@ -38,7 +38,7 @@ export default function App() {
 				)}
 				{scene === 'game' && <Game onExit={() => switchScene('menu')} />}
 				{scene === 'credits' && <Credits onBackToMenu={() => switchScene('menu')} />}
-				{scene === 'settings' && <OptionsScreen onBackToMenu={() => switchScene('menu')}></OptionsScreen>}
+				{scene === 'settings' && <SettingsScreen onBackToMenu={() => switchScene('menu')}></SettingsScreen>}
 
 				{/* For debugging */}
 				{scene === 'endgame' && (
