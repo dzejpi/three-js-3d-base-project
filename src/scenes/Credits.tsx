@@ -3,6 +3,8 @@ import GeneralGameButton from '../ui/GeneralGameButton';
 import GameUiTitle from '../ui/GameUiTitle';
 import GameUiText from '../ui/GameUiText';
 import UICenterWrapper from '../ui/UICenterWrapper';
+import UIScrollArea from '../ui/UIScrollArea';
+import UIBottomAction from '../ui/UIBottomAction';
 
 interface Props {
 	onBackToMenu: () => void;
@@ -12,16 +14,16 @@ export default function Credits({ onBackToMenu }: Props) {
 	return (
 		<UICenterWrapper>
 			<GameUiTitle>Credits</GameUiTitle>
-			<div className="flex min-h-0 flex-1 flex-col items-start gap-6 overflow-y-auto py-4">
+			<UIScrollArea>
 				<GameUiText>Very nice credits.</GameUiText>
 				<GameUiText>Very nice credits.</GameUiText>
 				<GameUiText>Very nice credits.</GameUiText>
 				<GameUiText>Very nice credits.</GameUiText>
-			</div>
+			</UIScrollArea>
 
-			<div className="w-48 self-center">
+			<UIBottomAction>
 				<GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
-			</div>
+			</UIBottomAction>
 		</UICenterWrapper>
 	);
 }

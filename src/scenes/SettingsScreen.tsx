@@ -5,6 +5,8 @@ import UICenterWrapper from '../ui/UICenterWrapper';
 import GameUiTextSection from '../ui/GameUiTextSection';
 import SettingsItem from '../ui/SettingsItem';
 import SettingsItemLabel from '../ui/SettingsItemLabel';
+import UIScrollArea from '../ui/UIScrollArea';
+import UIBottomAction from '../ui/UIBottomAction';
 
 interface Props {
 	onBackToMenu: () => void;
@@ -14,7 +16,7 @@ export default function SettingsScreen({ onBackToMenu }: Props) {
 	return (
 		<UICenterWrapper>
 			<GameUiTitle>Game settings</GameUiTitle>
-			<div className="flex min-h-0 flex-1 flex-col items-start gap-6 overflow-y-auto py-4">
+			<UIScrollArea>
 				<GameUiTextSection>Video settings</GameUiTextSection>
 				<SettingsItem>
 					<SettingsItemLabel>Fullscreen</SettingsItemLabel>
@@ -44,10 +46,11 @@ export default function SettingsScreen({ onBackToMenu }: Props) {
 					<SettingsItemLabel>Invert Y-Axis</SettingsItemLabel>
 					<GeneralGameButton onClick={() => console.log('Gameplay settings clicked')}>Off</GeneralGameButton>
 				</SettingsItem>
-			</div>
-			<div className="w-48 self-center">
+			</UIScrollArea>
+
+			<UIBottomAction>
 				<GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
-			</div>
+			</UIBottomAction>
 		</UICenterWrapper>
 	);
 }
