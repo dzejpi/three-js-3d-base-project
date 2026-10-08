@@ -34,10 +34,7 @@ export default function Game({ onExit }: Props) {
 
 	return (
 		<>
-			<Canvas
-				camera={{ position: [0, 2, 5], fov: 75 }}
-				style={{ width: '100vw', height: '100vh', background: 'skyblue' }}
-			>
+			<Canvas camera={{ position: [0, 2, 5], fov: 75 }} style={{ position: 'fixed', inset: 0, background: 'skyblue' }}>
 				<ambientLight intensity={0.5} />
 				<directionalLight position={[5, 10, 5]} />
 

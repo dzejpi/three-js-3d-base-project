@@ -5,5 +5,5 @@ interface UIWrapperProps {
 }
 
 export default function UICenterWrapper({ children }: UIWrapperProps) {
-	return <div className="flex flex-col gap-4 items-center mt-8">{children}</div>;
+	return <div className="flex h-full flex-col gap-4 items-center pt-8">{children}</div>;
 }

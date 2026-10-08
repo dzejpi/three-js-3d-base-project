@@ -14,8 +14,8 @@ export default function SettingsScreen({ onBackToMenu }: Props) {
 	return (
 		<UICenterWrapper>
 			<GameUiTitle>Game settings</GameUiTitle>
-			<div className="flex flex-1 flex-col overflow-y-auto py-4">
-				<div className="flex flex-col items-start gap-6 ">
+			<div className="flex min-h-0 flex-1 flex-col overflow-y-auto py-4">
+				<div className="flex flex-col items-start gap-6">
 					<GameUiTextSection>Video settings</GameUiTextSection>
 					<SettingsItem>
 						<SettingsItemLabel>Fullscreen</SettingsItemLabel>
@@ -47,7 +47,7 @@ export default function SettingsScreen({ onBackToMenu }: Props) {
 					</SettingsItem>
 				</div>
 			</div>
-			<div className="w-48 self-center py-16">
+			<div className="w-48 self-center">
 				<GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
 			</div>
 		</UICenterWrapper>

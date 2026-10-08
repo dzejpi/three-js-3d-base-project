@@ -5,5 +5,5 @@ interface SettingsItemProps {
 }
 
 export default function SettingsItem({ children }: SettingsItemProps) {
-	return <h2 className="flex items-center gap-4">{children}</h2>;
+	return <div className="flex items-center gap-4">{children}</div>;
 }
