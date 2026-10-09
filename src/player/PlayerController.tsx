@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { RigidBody, CapsuleCollider } from '@react-three/rapier';
 import { useThree, useFrame } from '@react-three/fiber';
-import { input } from '../config/input/InputManager';
+import { input } from '../config/input/inputManager';
 
 const WALK_SPEED = 5;
 const SPRINT_MULTIPLIER = 1.8;
@@ -44,13 +44,9 @@ export default function PlayerController() {
 	useFrame(() => {
 		if (!bodyRef.current) return;
 
-		// Update input manager
-		input.update();
-		const actions = input.actions;
-
 		// Player movement
-		const moveX = actions.get('move_right')!.value - actions.get('move_left')!.value;
-		const moveZ = actions.get('move_forward')!.value - actions.get('move_backward')!.value;
+		const moveX = input.get('move_right').value - input.get('move_left').value;
+		const moveZ = input.get('move_forward').value - input.get('move_backward').value;
 
 		const forward = { x: -Math.sin(yawRef.current), z: -Math.cos(yawRef.current) };
 		const right = { x: Math.cos(yawRef.current), z: -Math.sin(yawRef.current) };
@@ -61,7 +57,7 @@ export default function PlayerController() {
 		const len = Math.hypot(worldX, worldZ);
 		if (len > 0) {
 			let speed = WALK_SPEED;
-			if (actions.get('sprint')!.pressed) speed *= SPRINT_MULTIPLIER;
+			if (input.get('sprint').pressed) speed *= SPRINT_MULTIPLIER;
 
 			worldX = (worldX / len) * speed;
 			worldZ = (worldZ / len) * speed;
@@ -72,13 +68,13 @@ export default function PlayerController() {
 		bodyRef.current.setLinvel({ x: worldX, y: linvel.y, z: worldZ }, true);
 
 		// Jump
-		if (actions.get('jump')!.justPressed && Math.abs(linvel.y) < 0.05) {
+		if (input.get('jump').justPressed && Math.abs(linvel.y) < 0.05) {
 			bodyRef.current.applyImpulse({ x: 0, y: JUMP_FORCE, z: 0 }, true);
 		}
 
 		// Camera rotation
-		const lookX = actions.get('look_x')!.value;
-		const lookY = actions.get('look_y')!.value;
+		const lookX = input.get('look_x').value;
+		const lookY = input.get('look_y').value;
 
 		yawRef.current -= lookX * 0.04;
 		pitchRef.current = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, pitchRef.current - lookY * 0.04));

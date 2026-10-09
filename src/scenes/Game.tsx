@@ -5,6 +5,7 @@ import PlayerController from '../player/PlayerController';
 import { Physics } from '@react-three/rapier';
 import { Canvas } from '@react-three/fiber';
 import PlayerUi from '../ui/PlayerUi';
+import InputUpdater from '../config/input/InputUpdater';
 
 interface Props {
 	onExit: () => void;
@@ -35,6 +36,8 @@ export default function Game({ onExit }: Props) {
 	return (
 		<>
 			<Canvas camera={{ position: [0, 2, 5], fov: 75 }} style={{ position: 'fixed', inset: 0, background: 'skyblue' }}>
+				<InputUpdater />
+
 				<ambientLight intensity={0.5} />
 				<directionalLight position={[5, 10, 5]} />
 
