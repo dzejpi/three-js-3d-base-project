@@ -5,6 +5,7 @@ import UICenterWrapper from '../ui/UICenterWrapper';
 import UIScrollArea from '../ui/UIScrollArea';
 import UIBottomAction from '../ui/UIBottomAction';
 import GameUiText from '../ui/GameUiText';
+import { useSettings } from '../config/settingsStore';
 
 interface Props {
 	onStart: () => void;
@@ -15,6 +16,9 @@ interface Props {
 export default function MainMenu({ onCredits, onStart, onSettings }: Props) {
 	const [soundsOn, setSoundsOn] = useState(true);
 	const [musicOn, setMusicOn] = useState(true);
+	const music = useSettings(s => s.music);
+	const sfx = useSettings(s => s.sfx);
+	const cycle = useSettings(s => s.cycle);
 
 	const handleNewGame = () => {
 		onStart();
@@ -47,12 +51,8 @@ export default function MainMenu({ onCredits, onStart, onSettings }: Props) {
 			<UIScrollArea>
 				<GeneralGameButton onClick={handleNewGame}>Start</GeneralGameButton>
 				<GeneralGameButton onClick={handleOptions}>Settings</GeneralGameButton>
-				<GeneralGameButton onClick={handleSounds} toggle active={soundsOn}>
-					Sounds: {soundsOn ? 'on' : 'off'}
-				</GeneralGameButton>
-				<GeneralGameButton onClick={handleMusic} toggle active={musicOn}>
-					Music: {musicOn ? 'on' : 'off'}
-				</GeneralGameButton>
+				<GeneralGameButton onClick={() => cycle('music')}>Music: {music} %</GeneralGameButton>
+				<GeneralGameButton onClick={() => cycle('sfx')}>Sounds: {sfx} %</GeneralGameButton>
 				<GeneralGameButton onClick={handleCredits}>Credits</GeneralGameButton>
 				<GeneralGameButton disabled onClick={handleQuit}>
 					Quit

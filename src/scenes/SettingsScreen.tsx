@@ -7,12 +7,23 @@ import SettingsItem from '../ui/SettingsItem';
 import SettingsItemLabel from '../ui/SettingsItemLabel';
 import UIScrollArea from '../ui/UIScrollArea';
 import UIBottomAction from '../ui/UIBottomAction';
+import { useSettings } from '../config/settingsStore';
 
 interface Props {
 	onBackToMenu: () => void;
 }
 
 export default function SettingsScreen({ onBackToMenu }: Props) {
+	const fullscreen = useSettings(s => s.fullscreen);
+	const music = useSettings(s => s.music);
+	const sfx = useSettings(s => s.sfx);
+	const mouseSensitivity = useSettings(s => s.mouseSensitivity);
+	const fov = useSettings(s => s.fov);
+	const invertYAxis = useSettings(s => s.invertYAxis);
+	const cycle = useSettings(s => s.cycle);
+	const toggle = useSettings(s => s.toggle);
+	const toggleFullscreen = useSettings(s => s.toggleFullscreen);
+
 	return (
 		<UICenterWrapper>
 			<GameUiTitle>Game settings</GameUiTitle>
@@ -20,31 +31,31 @@ export default function SettingsScreen({ onBackToMenu }: Props) {
 				<GameUiTextSection>Video settings</GameUiTextSection>
 				<SettingsItem>
 					<SettingsItemLabel>Fullscreen</SettingsItemLabel>
-					<GeneralGameButton onClick={() => console.log('Video settings clicked')}>Off</GeneralGameButton>
+					<GeneralGameButton onClick={toggleFullscreen}>{fullscreen ? 'On' : 'Off'}</GeneralGameButton>
 				</SettingsItem>
 
 				<GameUiTextSection>Audio settings</GameUiTextSection>
 				<SettingsItem>
 					<SettingsItemLabel>Music</SettingsItemLabel>
-					<GeneralGameButton onClick={() => console.log('Music settings clicked')}>On</GeneralGameButton>
+					<GeneralGameButton onClick={() => cycle('music')}>{music} %</GeneralGameButton>
 				</SettingsItem>
 				<SettingsItem>
 					<SettingsItemLabel>SFX</SettingsItemLabel>
-					<GeneralGameButton onClick={() => console.log('SFX settings clicked')}>On</GeneralGameButton>
+					<GeneralGameButton onClick={() => cycle('sfx')}>{sfx} %</GeneralGameButton>
 				</SettingsItem>
 
 				<GameUiTextSection>Gameplay</GameUiTextSection>
 				<SettingsItem>
 					<SettingsItemLabel>Mouse sensitivity</SettingsItemLabel>
-					<GeneralGameButton onClick={() => console.log('Gameplay settings clicked')}>100 %</GeneralGameButton>
+					<GeneralGameButton onClick={() => cycle('mouseSensitivity')}>{mouseSensitivity} %</GeneralGameButton>
 				</SettingsItem>
 				<SettingsItem>
 					<SettingsItemLabel>FOV</SettingsItemLabel>
-					<GeneralGameButton onClick={() => console.log('Gameplay settings clicked')}>90</GeneralGameButton>
+					<GeneralGameButton onClick={() => cycle('fov')}>{fov}</GeneralGameButton>
 				</SettingsItem>
 				<SettingsItem>
 					<SettingsItemLabel>Invert Y-Axis</SettingsItemLabel>
-					<GeneralGameButton onClick={() => console.log('Gameplay settings clicked')}>Off</GeneralGameButton>
+					<GeneralGameButton onClick={() => toggle('invertYAxis')}>{invertYAxis ? 'On' : 'Off'}</GeneralGameButton>
 				</SettingsItem>
 			</UIScrollArea>
 
