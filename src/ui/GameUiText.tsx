@@ -5,5 +5,5 @@ interface GameUiTextProps {
 }
 
 export default function GameUiText({ children }: GameUiTextProps) {
-	return <p style={{ marginBottom: '2rem' }}>{children}</p>;
+	return <p className="mb-8">{children}</p>;
 }
