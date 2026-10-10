@@ -6,6 +6,7 @@ import { Physics } from '@react-three/rapier';
 import { Canvas } from '@react-three/fiber';
 import PlayerUi from '../ui/PlayerUi';
 import InputUpdater from '../config/input/InputUpdater';
+import PauseListener from '../player/PauseListener';
 
 interface Props {
 	onExit: () => void;
@@ -14,29 +15,21 @@ interface Props {
 export default function Game({ onExit }: Props) {
 	const [paused, setPaused] = useState(false);
 
+	// Pressing Escape while the pointer is locked just releases the lock, so, pause the game when the lock is lost
 	useEffect(() => {
-		const handleKey = (e: KeyboardEvent) => {
-			if (e.key === 'Escape' || e.key.toLowerCase() === 'p') {
-				setPaused(p => !p);
-				if (!paused) {
-					// Unlock pointer when pausing
-					document.exitPointerLock();
-				} else {
-					// Re-lock pointer when unpausing
-					const canvas = document.querySelector('canvas');
-					if (canvas) canvas.requestPointerLock();
-				}
-			}
+		const handleLockChange = () => {
+			if (!document.pointerLockElement) setPaused(true);
 		};
 
-		window.addEventListener('keydown', handleKey);
-		return () => window.removeEventListener('keydown', handleKey);
-	}, [paused]);
+		document.addEventListener('pointerlockchange', handleLockChange);
+		return () => document.removeEventListener('pointerlockchange', handleLockChange);
+	}, []);
 
 	return (
 		<>
 			<Canvas camera={{ position: [0, 2, 5], fov: 75 }} style={{ position: 'fixed', inset: 0, background: 'skyblue' }}>
 				<InputUpdater />
+				<PauseListener paused={paused} setPaused={setPaused} />
 
 				<ambientLight intensity={0.5} />
 				<directionalLight position={[5, 10, 5]} />
