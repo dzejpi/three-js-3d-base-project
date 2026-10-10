@@ -47,17 +47,12 @@ export default function SplashScreen({ onContinue }: Props) {
 	}, [fadeState, currentIndex, onContinue]);
 
 	const style: React.CSSProperties = {
-		width: '100%',
-		height: '100%',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
 		opacity: opacity,
 		transition: `opacity ${fadeState === 'fade-in' ? fadeInTime : fadeState === 'fade-out' ? fadeOutTime : 0}ms`,
 	};
 
 	return (
-		<div style={style}>
+		<div className="flex h-full w-full items-center justify-center" style={style}>
 			<img src={logos[currentIndex]} alt={`logo ${currentIndex}`} />
 		</div>
 	);

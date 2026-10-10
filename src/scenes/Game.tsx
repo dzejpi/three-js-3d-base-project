@@ -48,7 +48,7 @@ export default function Game({ onExit }: Props) {
 
 	return (
 		<>
-			<Canvas camera={{ position: [0, 2, 5], fov: 75 }} style={{ position: 'fixed', inset: 0, background: 'skyblue' }}>
+			<Canvas camera={{ position: [0, 2, 5], fov: 75 }} className="fixed! inset-0 bg-[skyblue]">
 				<InputUpdater />
 				<PauseListener paused={paused} onPause={pause} onResume={resume} />
 
