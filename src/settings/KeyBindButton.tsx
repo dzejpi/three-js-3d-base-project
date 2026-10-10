@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { ColorTokens } from '../styles/colors';
 
 interface KeyBindButtonProps {
 	action: string;
@@ -40,16 +39,9 @@ export default function KeyBindButton({ action, position, initialKey, onChange }
 				setListening(true);
 				setCurrentKey('?');
 			}}
-			style={{
-				minWidth: '12rem',
-				padding: '0.8rem 1.6rem',
-				fontFamily: 'monospace',
-				border: listening ? '0px solid yellow' : '1px solid white',
-				borderRadius: '6px',
-				background: listening ? ColorTokens.button_hover : ColorTokens.button_primary,
-				color: ColorTokens.button_text,
-				cursor: 'pointer',
-			}}
+			className={`min-w-48 px-[1.6rem] py-[0.8rem] font-mono rounded-md text-white cursor-pointer ${
+				listening ? 'border-0 bg-button-hover' : 'border border-white bg-button-primary'
+			}`}
 		>
 			{currentKey ? currentKey.toUpperCase() : '-'}
 		</button>
