@@ -11,6 +11,7 @@ import SettingsScreen from './scenes/SettingsScreen';
 
 type Scene = 'splash' | 'menu' | 'game' | 'credits' | 'endgame' | 'dialog' | 'settings';
 let isDebug: boolean = false;
+const FADE_DURATION_MS = 500;
 
 export default function App() {
 	const [scene, setScene] = useState<Scene>(isDebug ? 'settings' : 'splash');
@@ -22,7 +23,7 @@ export default function App() {
 		setTimeout(() => {
 			setScene(nextScene);
 			setFading(false);
-		}, 1000);
+		}, FADE_DURATION_MS);
 	};
 
 	return (
@@ -58,7 +59,7 @@ export default function App() {
 					</>
 				)}
 
-				<FadeOverlay visible={fading} duration={1} />
+				<FadeOverlay visible={fading} duration={FADE_DURATION_MS / 1000} />
 			</UIWrapper>
 		</>
 	);
