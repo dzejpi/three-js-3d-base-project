@@ -39,7 +39,7 @@ export default function App() {
 				)}
 				{scene === 'game' && <Game onExit={() => switchScene('menu')} />}
 				{scene === 'credits' && <Credits onBackToMenu={() => switchScene('menu')} />}
-				{scene === 'settings' && <SettingsScreen onBackToMenu={() => switchScene('menu')}></SettingsScreen>}
+				{scene === 'settings' && <SettingsScreen onBack={() => switchScene('menu')}></SettingsScreen>}
 
 				{/* For debugging */}
 				{scene === 'endgame' && (

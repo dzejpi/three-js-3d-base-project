@@ -10,10 +10,11 @@ import UIBottomAction from '../ui/UIBottomAction';
 import { useSettings } from '../config/settingsStore';
 
 interface Props {
-	onBackToMenu: () => void;
+	onBack: () => void;
+	backLabel?: string;
 }
 
-export default function SettingsScreen({ onBackToMenu }: Props) {
+export default function SettingsScreen({ onBack, backLabel = 'Back to menu' }: Props) {
 	const fullscreen = useSettings(s => s.fullscreen);
 	const music = useSettings(s => s.music);
 	const sfx = useSettings(s => s.sfx);
@@ -60,7 +61,7 @@ export default function SettingsScreen({ onBackToMenu }: Props) {
 			</UIScrollArea>
 
 			<UIBottomAction>
-				<GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
+				<GeneralGameButton onClick={onBack}>{backLabel}</GeneralGameButton>
 			</UIBottomAction>
 		</UICenterWrapper>
 	);
