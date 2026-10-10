@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import DialogText from './DialogText';
+import DialogContinuePrompt from './DialogContinuePrompt';
+import DialogWrapper from './DialogWrapper';
 
 interface DialogBoxProps {
 	lines: string[];
@@ -59,49 +62,9 @@ export default function DialogBox({ lines, autoDismiss = false, letterDelay = 75
 	};
 
 	return (
-		<div
-			style={{
-				position: 'absolute',
-				bottom: '2rem',
-				left: '50%',
-				transform: 'translateX(-50%)',
-				width: '92%',
-				padding: '2rem',
-				background: 'rgba(0,0,0,0.8)',
-				color: 'white',
-				borderRadius: '8px',
-				fontFamily: 'monospace',
-			}}
-		>
-			<p
-				style={{
-					minHeight: '4rem',
-					fontSize: '1.2rem',
-				}}
-			>
-				{visibleText}
-			</p>
-			<p
-				style={{
-					fontSize: '1rem',
-					color: 'white',
-					minHeight: '1.5rem',
-					animation: showTooltip && !autoDismiss ? 'blink 2s infinite' : 'none',
-					textAlign: 'center',
-				}}
-			>
-				{showTooltip && !autoDismiss ? 'Press Space to continue' : ''}
-			</p>
-
-			{/* Tooltip blinking */}
-			<style>
-				{`
-                    @keyframes blink {
-                        0%, 100% { opacity: 1; }
-                        50% { opacity: 0; }
-                    }
-                `}
-			</style>
-		</div>
+		<DialogWrapper>
+			<DialogText>{visibleText}</DialogText>
+			<DialogContinuePrompt visible={showTooltip && !autoDismiss} />
+		</DialogWrapper>
 	);
 }
