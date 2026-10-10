@@ -10,7 +10,7 @@ export default function TestingWorld({ onStart }: Props) {
 		<>
 			{/* Ground plane */}
 			<RigidBody type="fixed">
-				<mesh receiveShadow>
+				<mesh name="Ground" receiveShadow>
 					<boxGeometry args={[20, 1, 20]} />
 					<meshStandardMaterial color="green" />
 				</mesh>
@@ -18,7 +18,7 @@ export default function TestingWorld({ onStart }: Props) {
 
 			{/* Test cube */}
 			<RigidBody colliders="cuboid" position={[0, 2, 0]}>
-				<mesh castShadow>
+				<mesh name="TestCube" castShadow>
 					<boxGeometry args={[1, 1, 1]} />
 					<meshStandardMaterial color="lightgrey" />
 				</mesh>

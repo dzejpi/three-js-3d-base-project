@@ -7,6 +7,7 @@ import { Canvas } from '@react-three/fiber';
 import PlayerUi from '../ui/PlayerUi';
 import InputUpdater from '../config/input/InputUpdater';
 import PauseListener from '../player/PauseListener';
+import FPSRaycaster from '../player/FPSRaycaster';
 import { input } from '../config/input/inputManager';
 
 interface Props {
@@ -62,6 +63,9 @@ export default function Game({ onExit }: Props) {
 					{/* Player controller */}
 					<PlayerController paused={paused} />
 				</Physics>
+
+				{/* Mounted after the PlayerController so that it casts from this frame's camera position */}
+				<FPSRaycaster onTargetChange={hit => console.log('Looking at:', hit?.object.name || null)} />
 			</Canvas>
 
 			<PlayerUi hidden={paused} />
