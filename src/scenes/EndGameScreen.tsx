@@ -2,6 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import GeneralGameButton from '../ui/GeneralGameButton';
 import GameUiTitle from '../ui/GameUiTitle';
 import GameUiText from '../ui/GameUiText';
+import UICenterWrapper from '../ui/UICenterWrapper';
+import UIScrollArea from '../ui/UIScrollArea';
+import UIBottomAction from '../ui/UIBottomAction';
 
 interface Props {
 	isGameWon: boolean;
@@ -12,28 +15,17 @@ interface Props {
 
 export default function EndGameScreen({ isGameWon, score, highScore, onMainMenu }: Props) {
 	return (
-		<div
-			style={{
-				position: 'absolute',
-				top: 0,
-				left: 0,
-				width: '100%',
-				height: '100%',
-				background: 'rgba(0,0,0,0.8)',
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'center',
-				alignItems: 'center',
-				color: 'white',
-				zIndex: 30,
-			}}
-		>
-			<GameUiTitle>{isGameWon ? 'You won!' : 'Game over'}</GameUiTitle>
+		<UICenterWrapper>
+			<GameUiTitle>{isGameWon ? 'You won!' : 'Game over!'}</GameUiTitle>
 
-			<GameUiText>Your score: {score}</GameUiText>
-			<GameUiText>Highest score: {highScore}</GameUiText>
+			<UIScrollArea>
+				<GameUiText>Your score: {score}</GameUiText>
+				<GameUiText>Highest score: {highScore}</GameUiText>
+			</UIScrollArea>
 
-			<GeneralGameButton onClick={onMainMenu}>Return to Main menu</GeneralGameButton>
-		</div>
+			<UIBottomAction>
+				<GeneralGameButton onClick={onMainMenu}>Back to main menu</GeneralGameButton>
+			</UIBottomAction>
+		</UICenterWrapper>
 	);
 }
