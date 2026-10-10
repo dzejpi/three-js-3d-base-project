@@ -19,7 +19,7 @@ export default function Credits({ onBackToMenu }: Props) {
 			</UIScrollArea>
 
 			<UIBottomAction>
-				<GeneralGameButton onClick={onBackToMenu}>Back to Menu</GeneralGameButton>
+				<GeneralGameButton onClick={onBackToMenu}>Back to menu</GeneralGameButton>
 			</UIBottomAction>
 		</UICenterWrapper>
 	);
