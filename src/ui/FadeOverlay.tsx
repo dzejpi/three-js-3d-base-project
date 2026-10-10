@@ -15,16 +15,7 @@ export default function FadeOverlay({ visible, duration = 1 }: FadeOverlayProps)
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration }}
-					style={{
-						position: 'fixed',
-						top: 0,
-						left: 0,
-						width: '100%',
-						height: '100%',
-						backgroundColor: 'black',
-						pointerEvents: 'none',
-						zIndex: 9999,
-					}}
+					className="pointer-events-none fixed inset-0 z-50 bg-black"
 				/>
 			)}
 		</AnimatePresence>
