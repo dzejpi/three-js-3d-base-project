@@ -26,6 +26,10 @@ class InputManager {
 		this.bindings.set(action, binding);
 	}
 
+	isKeyDown(code: string): boolean {
+		return this.keys.has(code);
+	}
+
 	// Runtime
 	get(action: Action): ActionState {
 		return (

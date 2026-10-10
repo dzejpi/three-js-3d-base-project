@@ -7,9 +7,17 @@ const WALK_SPEED = 5;
 const SPRINT_MULTIPLIER = 1.8;
 const JUMP_FORCE = 8;
 
-export default function PlayerController() {
+interface Props {
+	paused: boolean;
+}
+
+export default function PlayerController({ paused }: Props) {
 	const bodyRef = useRef<any>(null);
 	const { camera, gl } = useThree();
+
+	// Ref so that the click handler always sees the current value without re-registering
+	const pausedRef = useRef(paused);
+	pausedRef.current = paused;
 
 	const yawRef = useRef(0);
 	const pitchRef = useRef(0);
@@ -19,7 +27,8 @@ export default function PlayerController() {
 	// Pointer lock and mouse look
 	useEffect(() => {
 		const handleClick = () => {
-			if (!document.pointerLockElement) {
+			// While paused, only the Continue button may lock the pointer (and resume the game)
+			if (!document.pointerLockElement && !pausedRef.current) {
 				gl.domElement.requestPointerLock();
 			}
 		};
