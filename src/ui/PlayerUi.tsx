@@ -1,8 +1,14 @@
 import React from 'react';
 
-export default function PlayerUi() {
+interface Props {
+	hidden?: boolean;
+}
+
+export default function PlayerUi({ hidden = false }: Props) {
 	return (
-		<div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-8">
+		<div
+			className={`pointer-events-none absolute inset-0 flex flex-col justify-between p-8 ${hidden ? 'invisible' : ''}`}
+		>
 			<div className="flex items-start justify-between">
 				<div className="flex flex-col text-white">
 					<div>Left Upper UI Info</div>

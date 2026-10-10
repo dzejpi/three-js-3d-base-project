@@ -50,7 +50,7 @@ export default function Game({ onExit }: Props) {
 				</Physics>
 			</Canvas>
 
-			<PlayerUi />
+			<PlayerUi hidden={paused} />
 
 			{/* Pause overlay */}
 			{paused && (
