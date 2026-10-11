@@ -25,6 +25,10 @@ export const bindings: Record<Action, KeyBinding> = {
 		keys: ['ShiftLeft', 'ShiftRight'],
 		buttons: [10],
 	},
+	interact: {
+		keys: ['KeyE'],
+		buttons: [2],
+	},
 	pause: {
 		keys: ['Escape', 'KeyP'],
 		buttons: [9],

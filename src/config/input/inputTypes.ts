@@ -5,6 +5,7 @@ export type Action =
 	| 'move_right'
 	| 'jump'
 	| 'sprint'
+	| 'interact'
 	| 'pause'
 	| 'look_x'
 	| 'look_y';

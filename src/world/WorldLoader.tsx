@@ -1,45 +1,36 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { Mesh, Group } from 'three';
-import { createTerrainCollider, createPrimitiveCollider, destroyWorldColliders } from './worldPhysics';
+import { Mesh, Vector3 } from 'three';
+import { RigidBody } from '@react-three/rapier';
+import { createColliderDef, type ColliderDef } from './modelColliders';
+import { ModelCollider } from './ModelLoader';
 
 type WorldLoaderProps = {
-	world_path: string;
+	worldPath: string;
 };
 
-/*
-    Loads a GLTF world and sets up colliders based on mesh name prefixes:
-    TER_ -> Detailed terrain collider
-    COL_ -> Primitive collider
-    No prefix -> Visible object with no collider 
-*/
-export function WorldLoader({ world_path }: WorldLoaderProps) {
-	const { scene } = useGLTF(world_path);
+const NO_SCALE = new Vector3(1, 1, 1);
 
-	useEffect(() => {
-		// Clear out any existing colliders
-		destroyWorldColliders();
+export function WorldLoader({ worldPath }: WorldLoaderProps) {
+	const { scene } = useGLTF(worldPath);
+
+	const colliders = useMemo(() => {
+		const defs: ColliderDef[] = [];
 
 		scene.traverse(obj => {
-			if (!(obj instanceof Mesh)) return;
-
-			const name = obj.name;
-
-			if (name.startsWith('TER_')) {
-				createTerrainCollider(obj);
-			}
-
-			if (name.startsWith('COL_')) {
-				createPrimitiveCollider({ mesh: obj, rigidBody: undefined });
-				// Hide collider mesh
-				obj.visible = false;
-			}
+			if (obj instanceof Mesh) defs.push(createColliderDef(obj, 'trimesh', scene, NO_SCALE));
 		});
 
-		return () => {
-			destroyWorldColliders();
-		};
+		return defs;
 	}, [scene]);
 
-	return <primitive object={scene as Group} />;
+	return (
+		<RigidBody type="fixed" colliders={false}>
+			<primitive object={scene} />
+
+			{colliders.map(def => (
+				<ModelCollider key={def.node.uuid} def={def} />
+			))}
+		</RigidBody>
+	);
 }
