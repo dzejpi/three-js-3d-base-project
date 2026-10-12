@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle, useMemo, useRef, type Ref } from 'react';
+import { useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, type Ref } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
@@ -33,13 +33,15 @@ const BODY_TYPES = {
 
 type AnimationActions = ReturnType<typeof useAnimations>['actions'];
 
+export type PlayOptions = { loop?: boolean; fade?: number; reverse?: boolean };
+
 export type ModelHandle = {
 	root: THREE.Object3D;
 	body: RapierRigidBody | null;
 	actions: AnimationActions;
 	mixer: THREE.AnimationMixer;
-	// Plays a clip by its Blender action name, once (e.g. door opening) or looped
-	play: (clip: string, options?: { loop?: boolean; fade?: number }) => THREE.AnimationAction | null;
+	// Play an animation by its Blender action name
+	play: (clip: string, options?: PlayOptions) => THREE.AnimationAction | null;
 };
 
 type ModelLoaderProps = {
@@ -88,7 +90,7 @@ export function ModelLoader({
 
 	const { scene, animations } = useGLTF(modelPath);
 
-	// useGLTF caches the scene per path, clone it so the same model can be placed multiple times
+	// useGLTF caches the scene per path, clone it so that the same model can be placed multiple times
 	const root = useMemo(() => cloneSkinned(scene), [scene]);
 	const { actions, mixer } = useAnimations(animations, root);
 
@@ -104,8 +106,8 @@ export function ModelLoader({
 		[colliders]
 	);
 
-	// Collider meshes stay in the scene graph so animations move them, they're only hidden
-	useEffect(() => {
+	// Colliders are moved, layout effect used so that they're hidden before the first frame is drawn
+	useLayoutEffect(() => {
 		for (const def of colliders) def.node.visible = debugColliders;
 	}, [colliders, debugColliders]);
 
@@ -149,18 +151,32 @@ export function ModelLoader({
 			},
 			actions,
 			mixer,
-			play(clip, { loop = false, fade = 0.2 } = {}) {
+			play(clip, { loop = false, fade = 0.2, reverse = false } = {}) {
 				const action = actions[clip];
 				if (!action) {
 					console.warn(`Clip "${clip}" not found in ${modelPath}`);
 					return null;
 				}
 
+				// Playing, or finished and holding its last frame
+				const inEffect = action.isScheduled() && action.enabled;
+				const duration = action.getClip().duration;
+				const time = action.time;
+
+				// Already at the end in this direction (one-shot finished), play it again from the start
+				const atEnd = reverse ? time <= 0 : time >= duration;
+
 				action.reset();
 				action.setLoop(loop ? THREE.LoopRepeat : THREE.LoopOnce, Infinity);
+
 				// Keep the last frame of one-shot clips (door stays open)
 				action.clampWhenFinished = !loop;
-				action.fadeIn(fade).play();
+				action.timeScale = reverse ? -1 : 1;
+				action.time = inEffect && !atEnd ? time : reverse ? duration : 0;
+
+				// Fading in from the rest pose only makes sense when the clip isn't shown already
+				if (!inEffect) action.fadeIn(fade);
+				action.play();
 
 				return action;
 			},
