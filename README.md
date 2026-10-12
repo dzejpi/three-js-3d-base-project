@@ -199,7 +199,7 @@ You can build and export the project by simply running:
 
 `npm run export`
 
-This builds the project and packs the build into a `.zip` file named after the `name` field in `package.json` (e.g. `three-js-3d-base-project.zip`). The file is ready to be uploaded to itch.io right away.
+This type-checks the project (and stops if there are any type errors), builds it and packs the build into a `.zip` file named after the `name` field in `package.json` (e.g. `three-js-3d-base-project.zip`). The file is ready to be uploaded to itch.io right away.
 
 The `.zip` file is saved into the `export` folder, which is ignored by git.
 
@@ -209,6 +209,6 @@ You can create a new build by running:
 
 `npm run build`
 
-This creates a `dist` folder with `index.html` in the root, as expected by itch.io. Build also creates an `assets` folder, which will match your `public/assets` folder.
+This type-checks the project (and stops if there are any type errors), then creates a `dist` folder with `index.html` in the root, as expected by itch.io. Build also creates an `assets` folder, which will match your `public/assets` folder.
 
 Then simply zip the contents of the `dist` folder into a `.zip` file and upload it to itch.io.
