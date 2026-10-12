@@ -11,7 +11,7 @@ This project contains:
 - - Sound settings
 - - Gameplay settings
 - Simple credits screen
-- Starting game world with primivite ground and a physics cube.
+- Starting game world with primitive ground and a physics cube.
 - Simple FPS controller which you can use as a starting project for your game jams.
 
 The goal of this project is to be a reusable template that gives you an opportunity to avoid the boring busywork and gives you an option to rapidly develop your 3D game, so, it should be particularly useful for game jams.
@@ -194,6 +194,16 @@ export function Door({ position, rotation }: DoorProps) {
 Calling `play` again on a one-shot clip that has already finished replays it (e.g. a wave), so keep track of the state yourself for things like doors, as above.
 
 ## Export to itch.io (and other platforms)
+
+You can build and export the project by simply running:
+
+`npm run export`
+
+This builds the project and packs the build into a `.zip` file named after the `name` field in `package.json` (e.g. `three-js-3d-base-project.zip`). The file is ready to be uploaded to itch.io right away.
+
+The `.zip` file is saved into the `export` folder, which is ignored by git.
+
+### Manual way
 
 You can create a new build by running:
 
