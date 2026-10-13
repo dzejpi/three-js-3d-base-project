@@ -10,11 +10,33 @@ import UIWrapper from './ui/UIWrapper';
 import SettingsScreen from './scenes/SettingsScreen';
 
 type Scene = 'splash' | 'menu' | 'game' | 'credits' | 'endgame' | 'dialog' | 'settings';
-let isDebug: boolean = false;
+const SCENES: Scene[] = ['splash', 'menu', 'game', 'credits', 'endgame', 'dialog', 'settings'];
 const FADE_DURATION_MS = 500;
+const SCENE_STORAGE_KEY = 'dev-scene';
+
+// When running dev, start on the scene from the URL (?scene=game) or the one open before the last reload
+function getInitialScene(): Scene {
+	if (!import.meta.env.DEV) return 'splash';
+
+	const fromUrl = new URLSearchParams(window.location.search).get('scene');
+	let fromStorage: string | null = null;
+	try {
+		fromStorage = sessionStorage.getItem(SCENE_STORAGE_KEY);
+	} catch {}
+
+	const saved = fromUrl ?? fromStorage;
+	return SCENES.includes(saved as Scene) ? (saved as Scene) : 'splash';
+}
 
 export default function App() {
-	const [scene, setScene] = useState<Scene>(isDebug ? 'settings' : 'splash');
+	const [scene, setScene] = useState<Scene>(getInitialScene);
+
+	useEffect(() => {
+		if (!import.meta.env.DEV) return;
+		try {
+			sessionStorage.setItem(SCENE_STORAGE_KEY, scene);
+		} catch {}
+	}, [scene]);
 	const [fading, setFading] = useState(false);
 	const [showDialog, setShowDialog] = useState(true);
 
