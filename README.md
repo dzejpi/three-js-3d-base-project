@@ -29,21 +29,19 @@ Which will install all dependencies. Then you can run the project by running:
 
 This will build the project using `Vite` and once it's done, you can access your project on `http://localhost:5173/`.
 
-### Debug
+### Hot reload
 
-Since this project supports hot reload, making any changes in the code while the project is running will refresh the project and let you inspect your changes right away. However, without turning debugging on, this would always take you to the splash screen, which would be a waste of time for you.
+This project supports hot reload (React Fast Refresh), which means that any changes you make to a component while the project is running show up right away and you stay on the screen you're on.
 
-If you're making changes on a particular screen, you can activate the `debug` mode and change the default screen.
+Some changes (like to non-component files, such as `settingsStore.ts`) still trigger a full page reload. When running in the dev mode, we remember the current scene. Changes in scenes can be seen right away after saving them. Note that only the screen is remembered, meaning things like the player's position in the game scene will be reset.
 
-Go to `App.tsx`, and change `isDebug: boolean` to `true`.
+You can also open any scene directly by adding a `scene` parameter to the URL:
 
-This will bypass the default `SplashScreen.tsx` -> `MainMenu.tsx` flow and let you set any default screen you want. Then find:
+`http://localhost:5173/?scene=game`
 
-`const [scene, setScene] = useState<Scene>(isDebug ? 'settings' : 'splash');`
+Available scenes are `splash`, `menu`, `game`, `credits`, `settings`, `endgame` and `dialog` (last two are just for testing those screens out).
 
-And change `settings` to whatever scene you want to load immediately.
-
-Do not forget to switch `isDebug` to `off` when making a public build.
+None of this applies to production builds.
 
 ## Assets
 
